@@ -1,9 +1,9 @@
-package com.academy.android.starwarsmovies;
+package com.academy.android.starwarsmovies.model;
 
 import android.graphics.Bitmap;
 import java.util.Date;
 
-class StarWarsMovie {
+public class StarWarsMovie {
   private String name;
   private String description;
   private Bitmap imageBitmap;
