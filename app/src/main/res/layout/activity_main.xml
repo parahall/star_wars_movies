@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:orientation="vertical"
+    tools:context="com.academy.android.starwarsmovies.MainActivity"
+    >
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_gravity="center_horizontal"
+      android:src="@drawable/logo"
+      />
+
+
+  <ProgressBar
+      android:id="@+id/pb_am_loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+  <ListView
+      android:id="@+id/lv_am_movie_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+
+</LinearLayout>
