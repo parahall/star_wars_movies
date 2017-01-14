@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_dark"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    >
+
+  <ImageView
+      android:layout_marginTop="8dp"
+      android:id="@+id/iv_im_movie_poster"
+      android:layout_width="70dp"
+      android:layout_height="98dp"
+      android:scaleType="fitXY"
+      tools:src="@drawable/poster"
+      />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginStart="8dp"
+      android:orientation="vertical"
+      >
+    <TextView
+        android:id="@+id/tv_im_movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Star Wars: Episode VI - Return of the Jedi"
+        />
+
+    <TextView
+        android:id="@+id/tv_im_movie_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="12sp"
+        tools:text="In the epic conclusion of the saga, the Empire prepares to crush the Rebellion with a more powerful Death Star while the Rebel fleet mounts a massive attack on the space station. Luke Skywalker confronts his father Darth Vader in a final climactic duel before the evil Emperor. In the last second, Vader makes a momentous choice: he destroys the Emperor and saves his son. The Empire is finally defeated, the Sith are destroyed, and Anakin Skywalker is thus redeemed. At long last, freedom is restored to the galaxy."
+        />
+
+    <TextView
+        android:id="@+id/tv_im_movie_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:textStyle="italic"
+        tools:text="May 25, 1983"
+        />
+
+  </LinearLayout>
+
+</LinearLayout>
