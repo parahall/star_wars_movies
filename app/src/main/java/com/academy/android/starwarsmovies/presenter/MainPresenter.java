@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import com.academy.android.starwarsmovies.R;
 import com.academy.android.starwarsmovies.model.StarWarsMovie;
 import com.academy.android.starwarsmovies.model.StarWarsService;
+import com.bumptech.glide.Glide;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -117,7 +118,10 @@ public class MainPresenter extends BasePresenter<MainActivityView> {
 
       SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy");
       holder.tvDate.setText(format.format(starWarsMovie.getReleaseDate()));
-      holder.ivPoster.setImageBitmap(starWarsMovie.getImageBitmap());
+      Glide.with(getContext())
+          .load(starWarsMovie.getImageUrl())
+          .placeholder(R.drawable.placeholder)
+          .into(holder.ivPoster);
 
       return convertView;
     }

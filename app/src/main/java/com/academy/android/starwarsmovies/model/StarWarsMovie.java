@@ -1,18 +1,17 @@
 package com.academy.android.starwarsmovies.model;
 
-import android.graphics.Bitmap;
 import java.util.Date;
 
 public class StarWarsMovie {
   private String name;
   private String description;
-  private Bitmap imageBitmap;
+  private String imageUrl;
   private Date releaseDate;
 
-  public StarWarsMovie(String name, String description, Bitmap imageBitmap, Date releaseDate) {
+  public StarWarsMovie(String name, String description, String imageBitmap, Date releaseDate) {
     this.name = name;
     this.description = description;
-    this.imageBitmap = imageBitmap;
+    this.imageUrl = imageBitmap;
     this.releaseDate = releaseDate;
   }
 
@@ -24,12 +23,12 @@ public class StarWarsMovie {
     this.name = name;
   }
 
-  public Bitmap getImageBitmap() {
-    return imageBitmap;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public void setImageBitmap(Bitmap imageBitmap) {
-    this.imageBitmap = imageBitmap;
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   public Date getReleaseDate() {
