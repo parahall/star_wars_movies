@@ -6,23 +6,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.academy.android.starwarsmovies.R;
 import com.academy.android.starwarsmovies.presenter.MainActivityView;
 import com.academy.android.starwarsmovies.presenter.MainPresenter;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
 
-  private ListView listView;
-  private ProgressBar progressBar;
+  @BindView(R.id.lv_am_movie_list) ListView listView;
+  @BindView(R.id.pb_am_loading) ProgressBar progressBar;
   public static MainPresenter mainPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    listView = (ListView) findViewById(R.id.lv_am_movie_list);
+    ButterKnife.bind(this);
     listView.setVisibility(View.GONE);
-    progressBar = (ProgressBar) findViewById(R.id.pb_am_loading);
     progressBar.setVisibility(View.VISIBLE);
 
     if (mainPresenter == null) {
