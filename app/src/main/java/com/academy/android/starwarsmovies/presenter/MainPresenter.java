@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.academy.android.starwarsmovies.R;
 import com.academy.android.starwarsmovies.model.StarWarsMovie;
 import com.academy.android.starwarsmovies.model.StarWarsService;
@@ -84,6 +86,17 @@ public class MainPresenter extends BasePresenter<MainActivityView> {
     activityView.getListView().setVisibility(View.VISIBLE);
   }
 
+  static class ViewHolder {
+    @BindView(R.id.tv_im_movie_name) TextView tvName;
+    @BindView(R.id.tv_im_movie_description) TextView tvDescription;
+    @BindView(R.id.tv_im_movie_date) TextView tvDate;
+    @BindView(R.id.iv_im_movie_poster) ImageView ivPoster;
+
+    public ViewHolder(View view) {
+      ButterKnife.bind(this, view);
+    }
+  }
+
   private class MovieAdapter extends ArrayAdapter<StarWarsMovie> {
     public MovieAdapter(Context context, ArrayList<StarWarsMovie> users) {
       super(context, 0, users);
@@ -91,20 +104,20 @@ public class MainPresenter extends BasePresenter<MainActivityView> {
 
     @NonNull @Override public View getView(int position, View convertView, ViewGroup parent) {
       StarWarsMovie starWarsMovie = getItem(position);
+      ViewHolder holder;
       if (convertView == null) {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_movie, parent, false);
+        holder = new ViewHolder(convertView);
+        convertView.setTag(holder);
       }
-      TextView tvName = (TextView) convertView.findViewById(R.id.tv_im_movie_name);
-      TextView tvDescription = (TextView) convertView.findViewById(R.id.tv_im_movie_description);
-      TextView tvDate = (TextView) convertView.findViewById(R.id.tv_im_movie_date);
-      ImageView ivPoster = (ImageView) convertView.findViewById(R.id.iv_im_movie_poster);
 
-      tvName.setText(starWarsMovie.getName());
-      tvDescription.setText(starWarsMovie.getDescription());
+      holder = (ViewHolder) convertView.getTag();
+      holder.tvName.setText(starWarsMovie.getName());
+      holder.tvDescription.setText(starWarsMovie.getDescription());
 
       SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy");
-      tvDate.setText(format.format(starWarsMovie.getReleaseDate()));
-      ivPoster.setImageBitmap(starWarsMovie.getImageBitmap());
+      holder.tvDate.setText(format.format(starWarsMovie.getReleaseDate()));
+      holder.ivPoster.setImageBitmap(starWarsMovie.getImageBitmap());
 
       return convertView;
     }
