@@ -4,13 +4,14 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.content.LocalBroadcastManager;
-import com.academy.android.starwarsmovies.ImageLoader;
 import com.academy.android.starwarsmovies.ResourcesUtil;
 import com.academy.android.starwarsmovies.presenter.MainPresenter;
+import com.bumptech.glide.Glide;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,8 +37,13 @@ public class StarWarsService extends IntentService {
 
           SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy");
           Date date = format.parse(releaseDate);
-          ImageLoader imgLoader = new ImageLoader(getApplicationContext());
-          Bitmap bitmap = imgLoader.displayImage(imageUrl);
+          Bitmap bitmap = null;
+          try {
+            bitmap =
+                Glide.with(getApplicationContext()).load(imageUrl).asBitmap().into(100, 100).get();
+          } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+          }
 
           moviesList.add(new StarWarsMovie(name, description, bitmap, date));
         }

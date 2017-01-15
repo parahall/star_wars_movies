@@ -23,7 +23,6 @@ public class MainPresenter extends BasePresenter<MainActivityView> {
       "com.academy.android.starwarsmovies.load_complete";
   public static final String DATA_KEY = "data_key";
   private StarWarsMovieDataReceiver movieDataReceiver;
-  private ArrayList<StarWarsMovie> list;
   private ArrayList<StarWarsMovie> movieList;
 
   @Override public void attachView(MainActivityView mainActivityView) {
