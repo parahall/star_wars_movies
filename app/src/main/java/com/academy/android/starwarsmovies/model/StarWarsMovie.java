@@ -1,17 +1,21 @@
 package com.academy.android.starwarsmovies.model;
 
-import java.util.Date;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+@Entity
 public class StarWarsMovie {
-  private String name;
+
+  //private  String id;
+  private @PrimaryKey String name;
   private String description;
   private String imageUrl;
-  private Date releaseDate;
+  private String releaseDate;
 
-  public StarWarsMovie(String name, String description, String imageBitmap, Date releaseDate) {
+  public StarWarsMovie(String name, String description, String imageUrl, String releaseDate) {
     this.name = name;
     this.description = description;
-    this.imageUrl = imageBitmap;
+    this.imageUrl = imageUrl;
     this.releaseDate = releaseDate;
   }
 
@@ -31,11 +35,11 @@ public class StarWarsMovie {
     this.imageUrl = imageUrl;
   }
 
-  public Date getReleaseDate() {
+  public String getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(Date releaseDate) {
+  public void setReleaseDate(String releaseDate) {
     this.releaseDate = releaseDate;
   }
 

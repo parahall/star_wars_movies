@@ -1,56 +1,96 @@
 package com.academy.android.starwarsmovies.view;
 
+import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.academy.android.starwarsmovies.R;
-import com.academy.android.starwarsmovies.presenter.MainActivityView;
-import com.academy.android.starwarsmovies.presenter.MainPresenter;
+import com.academy.android.starwarsmovies.model.StarWarsMovie;
+import com.academy.android.starwarsmovies.viewmodel.MainViewModel;
+import com.bumptech.glide.Glide;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainActivityView {
+public class MainActivity extends LifecycleActivity implements Observer<List<StarWarsMovie>> {
 
   @BindView(R.id.lv_am_movie_list) ListView listView;
   @BindView(R.id.pb_am_loading) ProgressBar progressBar;
-  public static MainPresenter mainPresenter;
+  private MainViewModel mainViewModel;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
     ButterKnife.bind(this);
     listView.setVisibility(View.GONE);
     progressBar.setVisibility(View.VISIBLE);
 
-    if (mainPresenter == null) {
-      mainPresenter = new MainPresenter();
+    subscribeUiUpdates();
+  }
+
+  private void subscribeUiUpdates() {
+    mainViewModel.getMoviesLiveData().observe(this, this);
+  }
+
+  @Override public void onChanged(@Nullable List<StarWarsMovie> starWarsMovies) {
+    Log.d("XXX","Data changed");
+    MovieAdapter movieAdapter = new MovieAdapter(this, starWarsMovies);
+    listView.setAdapter(movieAdapter);
+
+    progressBar.setVisibility(View.GONE);
+    listView.setVisibility(View.VISIBLE);
+  }
+
+  static class ViewHolder {
+    @BindView(R.id.tv_im_movie_name) TextView tvName;
+    @BindView(R.id.tv_im_movie_description) TextView tvDescription;
+    @BindView(R.id.tv_im_movie_date) TextView tvDate;
+    @BindView(R.id.iv_im_movie_poster) ImageView ivPoster;
+
+    ViewHolder(View view) {
+      ButterKnife.bind(this, view);
     }
-    mainPresenter.attachView(this);
   }
 
-  @Override protected void onDestroy() {
-    super.onDestroy();
-    mainPresenter.detachView();
-    if (isFinishing()) mainPresenter = null;
-  }
+  private class MovieAdapter extends ArrayAdapter<StarWarsMovie> {
+    public MovieAdapter(Context context, List<StarWarsMovie> users) {
+      super(context, 0, users);
+    }
 
-  @Override public Context getAppContext() {
-    return getApplicationContext();
-  }
+    @NonNull @Override public View getView(int position, View convertView, ViewGroup parent) {
+      StarWarsMovie starWarsMovie = getItem(position);
+      ViewHolder holder;
+      if (convertView == null) {
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_movie, parent, false);
+        holder = new ViewHolder(convertView);
+        convertView.setTag(holder);
+      }
 
-  @Override public Context getActivityContext() {
-    return this;
-  }
+      holder = (ViewHolder) convertView.getTag();
+      holder.tvName.setText(starWarsMovie.getName());
+      holder.tvDescription.setText(starWarsMovie.getDescription());
+      holder.tvDate.setText(starWarsMovie.getReleaseDate());
 
-  @Override public ListView getListView() {
-    return listView;
-  }
+      Glide.with(getContext())
+          .load(starWarsMovie.getImageUrl())
+          .placeholder(R.drawable.placeholder)
+          .into(holder.ivPoster);
 
-  @Override public ProgressBar getProgressBar() {
-    return progressBar;
+      return convertView;
+    }
   }
 }
