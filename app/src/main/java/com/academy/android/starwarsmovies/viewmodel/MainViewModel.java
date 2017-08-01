@@ -19,9 +19,8 @@ public class MainViewModel extends AndroidViewModel {
   public MainViewModel(Application application) {
     super(application);
     ((StarWarsApplication) getApplication()).getAppComponent().inject(this);
-    requestDataUpdates();
-
     subscribeToDbChanges();
+    requestDataUpdates();
   }
 
   private void requestDataUpdates() {
