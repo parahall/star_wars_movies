@@ -1,6 +1,7 @@
 package com.academy.android.starwarsmovies.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
@@ -11,6 +12,9 @@ public class StarWarsMovie {
   private String description;
   private String imageUrl;
   private String releaseDate;
+
+  @Ignore public StarWarsMovie() {
+  }
 
   public StarWarsMovie(String name, String description, String imageUrl, String releaseDate) {
     this.name = name;

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "857209666249",
+    "firebase_url": "https://starwarsmovies-f49d7.firebaseio.com",
+    "project_id": "starwarsmovies-f49d7",
+    "storage_bucket": "starwarsmovies-f49d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857209666249:android:db49bce3910b519e",
+        "android_client_info": {
+          "package_name": "com.academy.android.starwarsmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857209666249-b9277lha41d1nrfkmpp8ilau2pgae2fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTxjM5GYei5QuMd3refLcSPI9GwEnFUIY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

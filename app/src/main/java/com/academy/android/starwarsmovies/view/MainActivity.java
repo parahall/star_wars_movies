@@ -4,10 +4,10 @@ import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +47,19 @@ public class MainActivity extends LifecycleActivity implements Observer<List<Sta
   }
 
   @Override public void onChanged(@Nullable List<StarWarsMovie> starWarsMovies) {
-    Log.d("XXX","Data changed");
-    MovieAdapter movieAdapter = new MovieAdapter(this, starWarsMovies);
-    listView.setAdapter(movieAdapter);
+    if (starWarsMovies != null && starWarsMovies.size() > 0) {
+      MovieAdapter movieAdapter = new MovieAdapter(this, starWarsMovies);
+      listView.setAdapter(movieAdapter);
 
-    progressBar.setVisibility(View.GONE);
-    listView.setVisibility(View.VISIBLE);
+      progressBar.setVisibility(View.GONE);
+      listView.setVisibility(View.VISIBLE);
+    }
+  }
+
+  public static void start(Context context) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    context.startActivity(intent);
   }
 
   static class ViewHolder {
@@ -67,11 +74,12 @@ public class MainActivity extends LifecycleActivity implements Observer<List<Sta
   }
 
   private class MovieAdapter extends ArrayAdapter<StarWarsMovie> {
-    public MovieAdapter(Context context, List<StarWarsMovie> users) {
+    MovieAdapter(Context context, List<StarWarsMovie> users) {
       super(context, 0, users);
     }
 
-    @NonNull @Override public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull @Override
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
       StarWarsMovie starWarsMovie = getItem(position);
       ViewHolder holder;
       if (convertView == null) {
@@ -81,6 +89,7 @@ public class MainActivity extends LifecycleActivity implements Observer<List<Sta
       }
 
       holder = (ViewHolder) convertView.getTag();
+      assert starWarsMovie != null;
       holder.tvName.setText(starWarsMovie.getName());
       holder.tvDescription.setText(starWarsMovie.getDescription());
       holder.tvDate.setText(starWarsMovie.getReleaseDate());
