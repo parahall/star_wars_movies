@@ -3,11 +3,13 @@ package com.academy.android.starwarsmovies.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class StarWarsMovie {
 
   //private  String id;
+  @NonNull
   private @PrimaryKey String name;
   private String description;
   private String imageUrl;
@@ -16,7 +18,7 @@ public class StarWarsMovie {
   @Ignore public StarWarsMovie() {
   }
 
-  public StarWarsMovie(String name, String description, String imageUrl, String releaseDate) {
+    public StarWarsMovie(@NonNull String name, String description, String imageUrl, String releaseDate) {
     this.name = name;
     this.description = description;
     this.imageUrl = imageUrl;
@@ -27,7 +29,7 @@ public class StarWarsMovie {
     return name;
   }
 
-  public void setName(String name) {
+    public void setName(@NonNull String name) {
     this.name = name;
   }
 

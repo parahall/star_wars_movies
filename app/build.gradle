@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.1"
+  compileSdkVersion 27
+  buildToolsVersion "27.0.3"
   defaultConfig {
     applicationId "com.academy.android.starwarsmovies"
     minSdkVersion 16
-    targetSdkVersion 26
+    targetSdkVersion 27
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,15 +20,16 @@ android {
 }
 
 dependencies {
-  implementation 'com.android.support:design:26.0.0'
+
   compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
 
   ext {
-    flatfoot = "1.0.0-alpha7"
-    support_lib = "26.0.0"
+    flatfoot = "1.1.0"
+    room = "1.0.0"
+    support_lib = "27.1.0"
     glide = "3.7.0"
     butter_knife = "8.6.0"
     gson = "2.8.0"
@@ -37,23 +38,24 @@ dependencies {
     firebase = "11.0.4"
   }
 
-  compile "com.android.support:appcompat-v7:${support_lib}"
-  compile "com.github.bumptech.glide:glide:${glide}"
-  compile "com.jakewharton:butterknife:${butter_knife}"
+  implementation "com.android.support:design:${support_lib}"
+  implementation "com.android.support:appcompat-v7:${support_lib}"
+  implementation "com.github.bumptech.glide:glide:${glide}"
+  implementation "com.jakewharton:butterknife:${butter_knife}"
   annotationProcessor "com.jakewharton:butterknife-compiler:${butter_knife}"
-  compile "com.google.code.gson:gson:${gson}"
+  implementation "com.google.code.gson:gson:${gson}"
   testCompile "junit:junit:${junit}"
-  compile "com.google.firebase:firebase-auth:${firebase}"
-  compile "com.google.android.gms:play-services-auth:${firebase}"
-  compile "com.google.firebase:firebase-database:${firebase}"
-  compile "com.google.firebase:firebase-config:${firebase}"
+  implementation "com.google.firebase:firebase-auth:${firebase}"
+  implementation "com.google.android.gms:play-services-auth:${firebase}"
+  implementation "com.google.firebase:firebase-database:${firebase}"
+  implementation "com.google.firebase:firebase-config:${firebase}"
   //Flatfoot
-  compile "android.arch.lifecycle:runtime:${flatfoot}"
-  compile "android.arch.lifecycle:extensions:${flatfoot}"
+  implementation "android.arch.lifecycle:runtime:${flatfoot}"
+  implementation "android.arch.lifecycle:extensions:${flatfoot}"
   annotationProcessor "android.arch.lifecycle:compiler:${flatfoot}"
-  compile "android.arch.persistence.room:runtime:${flatfoot}"
-  annotationProcessor "android.arch.persistence.room:compiler:${flatfoot}"
-  compile "com.google.dagger:dagger:${dagger}"
+  implementation "android.arch.persistence.room:runtime:${room}"
+  annotationProcessor "android.arch.persistence.room:compiler:${room}"
+  implementation "com.google.dagger:dagger:${dagger}"
   annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
 }
 

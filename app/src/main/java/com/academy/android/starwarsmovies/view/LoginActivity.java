@@ -2,7 +2,6 @@ package com.academy.android.starwarsmovies.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -10,14 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.academy.android.starwarsmovies.R;
 import com.academy.android.starwarsmovies.StarWarsApplication;
 import com.academy.android.starwarsmovies.model.RemoteConfig;
@@ -28,13 +27,17 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends LifecycleActivity
-    implements LifecycleOwner, Observer, OnClickListener,
+public class LoginActivity extends AppCompatActivity
+        implements LifecycleOwner, Observer, OnClickListener,
     GoogleApiClient.OnConnectionFailedListener {
 
   private static final int GOOGLE_SIGN_IN_REQUEST_CODE = 0;
@@ -47,10 +50,6 @@ public class LoginActivity extends LifecycleActivity
 
   LoginViewModel mLoginViewModel;
   private GoogleApiClient mGoogleApiClient;
-
-  enum Authorization {
-    REGISTRATION, LOGIN
-  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -165,7 +164,6 @@ public class LoginActivity extends LifecycleActivity
     if (changeable != null) {
       if (changeable instanceof FirebaseUser) {
         showProgress(false);
-
         MainActivity.start(this);
       }
       if (changeable instanceof RemoteConfig) {
@@ -199,7 +197,6 @@ public class LoginActivity extends LifecycleActivity
 
     // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
     if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
-      showProgress(false);
       mLoginViewModel.googleSignIn(data);
     }
   }
@@ -207,6 +204,10 @@ public class LoginActivity extends LifecycleActivity
   @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     Toast.makeText(this, "Google Sign In not available", Toast.LENGTH_LONG).show();
     findViewById(R.id.google_sign_in_button).setEnabled(false);
+  }
+
+  enum Authorization {
+    REGISTRATION, LOGIN
   }
 }
 

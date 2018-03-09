@@ -1,6 +1,5 @@
 package com.academy.android.starwarsmovies.view;
 
-import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -8,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +16,28 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.academy.android.starwarsmovies.R;
 import com.academy.android.starwarsmovies.model.StarWarsMovie;
 import com.academy.android.starwarsmovies.viewmodel.MainViewModel;
 import com.bumptech.glide.Glide;
+
 import java.util.List;
 
-public class MainActivity extends LifecycleActivity implements Observer<List<StarWarsMovie>> {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends AppCompatActivity implements Observer<List<StarWarsMovie>> {
 
   @BindView(R.id.lv_am_movie_list) ListView listView;
   @BindView(R.id.pb_am_loading) ProgressBar progressBar;
   private MainViewModel mainViewModel;
+
+  public static void start(Context context) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    context.startActivity(intent);
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -54,12 +63,6 @@ public class MainActivity extends LifecycleActivity implements Observer<List<Sta
       progressBar.setVisibility(View.GONE);
       listView.setVisibility(View.VISIBLE);
     }
-  }
-
-  public static void start(Context context) {
-    Intent intent = new Intent(context, MainActivity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-    context.startActivity(intent);
   }
 
   static class ViewHolder {
