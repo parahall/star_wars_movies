@@ -2,13 +2,14 @@ package com.academy.android.starwarsmovies.model;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
 import com.academy.android.starwarsmovies.ResourcesUtil;
 import com.academy.android.starwarsmovies.presenter.MainPresenter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class StarWarsService extends IntentService {
   public StarWarsService() {
